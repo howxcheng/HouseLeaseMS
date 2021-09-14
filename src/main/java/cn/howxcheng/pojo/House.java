@@ -1,4 +1,4 @@
-package cn.pojo;
+package cn.howxcheng.pojo;
 
 
 public class House {

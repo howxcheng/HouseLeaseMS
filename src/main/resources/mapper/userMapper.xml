@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.howxcheng.dao.UserDao">
-    <resultMap id="user" type="cn.pojo.User">
+    <resultMap id="user" type="cn.howxcheng.pojo.User">
         <result property="uid" column="UID"/>
         <result property="username" column="userName"/>
         <result property="password" column="userAddress"/>
@@ -11,4 +11,15 @@
         <result property="phone" column="balance"/>
     </resultMap>
 
+    <select id="userLogin" resultType="java.lang.Integer">
+        SELECT count(Uid) FROM user
+        <where>
+            <if test="username!=null">
+                and username = #{username}
+            </if>
+            <if test="password!=null">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
 </mapper>

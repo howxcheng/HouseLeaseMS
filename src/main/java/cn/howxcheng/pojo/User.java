@@ -1,7 +1,7 @@
-package cn.pojo;
+package cn.howxcheng.pojo;
 
 
-public class Admin {
+public class User {
 
   private long uid;
   private String username;
