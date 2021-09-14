@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.howxcheng.dao.AdminDao">
+    <resultMap id="user" type="cn.pojo.User">
+        <result property="uid" column="UID"/>
+        <result property="username" column="userName"/>
+        <result property="password" column="userAddress"/>
+        <result property="email" column="houseNumber"/>
+        <result property="phone" column="balance"/>
+    </resultMap>
+
+</mapper>
