@@ -24,7 +24,7 @@
     <script src="assets/js/supersized-init.js"></script>
     <script src="assets/js/scripts.js"></script>
     <script type='text/javascript'>
-        let code; //在全局定义验证码
+        let code; //验证码
 
         function createCode() {
             code = "";
@@ -92,14 +92,27 @@
             }
             return false;
         }
+
+        function backToHome() {
+            window.location.href = "house.jsp";
+        }
     </script>
 </head>
 <body>
 <script type="text/javascript">window.onload = function () {
     createCode();
 }</script>
+<div class="headerLine">
+    <div class="headerButton" onclick="backToHome()">
+        <table>
+            <tr>
+                <td onclick="backToHome()">返回首页</td>
+            </tr>
+        </table>
+    </div>
+</div>
 <div class="page-container">
-    <h1 style="font-size: 50px">登&nbsp;&nbsp;录</h1>
+    <h1 style="font-size: 50px;top: 50px">登&nbsp;&nbsp;录</h1>
     <form action="" method="post" onsubmit="return false">
         <input type="text" id="username" name="username" class="username" placeholder="请输入您的用户名！">
         <input type="password" id="password" name="password" class="password" placeholder="请输入您的用户密码！">
@@ -107,7 +120,9 @@
         <input type="button" id="code" onclick="createCode()" style="float:right;width:130px;" title="点击更换验证码">
         <div style="margin: auto;width: 70%;text-align: center">
             <button type="submit" class="submit_button" onclick="validate()">登&nbsp;&nbsp;&nbsp;录</button>
-            <button type="button" class="submit_button" onclick="register()">注&nbsp;&nbsp;&nbsp;册</button>
+            <p style="margin-top: 20px">
+                <a href="register.jsp">还没有账号，点此处注册</a>
+            </p>
         </div>
         <div class="error"><span>+</span></div>
     </form>

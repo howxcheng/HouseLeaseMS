@@ -15,6 +15,26 @@ body {
     font-family: Microsoft YaHei, Segoe UI, Tahoma, Arial, Verdana, sans-serif;
 }
 
+.headerLine {
+    text-align: left;
+    top: 0;
+    margin-top: 0;
+    position: absolute;
+    height: 80px;
+    width: 100%;
+    float: left
+}
+
+.headerButton {
+    position: absolute;
+    margin: 20px;
+    width: 150px;
+    height: 60px;
+    float: left;
+    cursor: pointer;
+    font-size: 25px;
+}
+
 .page-container {
     width: 350px;
     height: auto;
