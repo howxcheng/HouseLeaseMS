@@ -9,7 +9,6 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
   <display-name>Archetype Created Web Application</display-name>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
-    <welcome-file>user.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>dispatcher</servlet-name>
@@ -42,12 +41,4 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
     <filter-name>encodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  <!--  <filter>-->
-  <!--    <filter-name>CorsFilter</filter-name>-->
-  <!--    <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>-->
-  <!--  </filter>-->
-  <!--  <filter-mapping>-->
-  <!--    <filter-name>CorsFilter</filter-name>-->
-  <!--    <url-pattern>/*</url-pattern>-->
-  <!--  </filter-mapping>-->
 </web-app>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.howxcheng.dao.HouseDao">
+    <resultMap id="house" type="cn.howxcheng.pojo.House">
+        <result property="hid" column="Hid"/>
+        <result property="address" column="Address"/>
+        <result property="phone" column="Phone"/>
+        <result property="size" column="Size"/>
+        <result property="rent" column="Rent"/>
+        <result property="leased" column="Leased"/>
+    </resultMap>
+    <select id="getHouseInfo" resultMap="house">
+        select * from house
+        <where>
+            <if test="Hid!=''">
+                and Hid = #{Hid}
+            </if>
+            <if test="Address!=''">
+                and Address = #{Address}
+            </if>
+            <if test="Rent!=''">
+                and Rent = #{Rent}
+            </if>
+            <if test="Size!=''">
+                and Size = #{Size}
+            </if>
+            <if test="Admin==false">
+                and Leased = 0
+            </if>
+        </where>
+    </select>
+
+</mapper>

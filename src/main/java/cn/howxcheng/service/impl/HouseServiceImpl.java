@@ -1,0 +1,21 @@
+package cn.howxcheng.service.impl;
+
+import cn.howxcheng.dao.HouseDao;
+import cn.howxcheng.dao.UserDao;
+import cn.howxcheng.pojo.House;
+import cn.howxcheng.service.HouseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class HouseServiceImpl implements HouseService {
+    @Autowired
+    HouseDao houseDao;
+
+    @Override
+    public List<House> getHouseInfo(String hid, String address, String rent, String size,boolean admin) {
+        return houseDao.getHouseInfo(hid,address,rent,size,admin);
+    }
+}

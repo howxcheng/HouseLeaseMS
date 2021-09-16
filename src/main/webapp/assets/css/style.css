@@ -35,6 +35,13 @@ body {
     font-size: 25px;
 }
 
+/*.transparent_class {*/
+/*    filter: alpha(opacity=50);*/
+/*    -moz-opacity: 0.5;*/
+/*    -khtml-opacity: 0.5;*/
+/*    opacity: 0.5;*/
+/*}*/
+
 .page-container {
     width: 350px;
     height: auto;
@@ -225,5 +232,107 @@ input.Captcha {
     float: left;
 }
 
+
+ul {
+    font-family: "STKaiti";
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #F5F5F5;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #808080;
+}
+
+.active {
+    background-color: #F5F5F5;
+}
+
+/* 为所有列表项添加灰色右边框，最后一项（last-child）除外 */
+.headLi {
+    border-right: 4px solid white;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: center;
+    align-content: center;
+}
+
+li:last-child {
+    border-right: none;
+}
+
+ul {
+    margin: auto;
+    width: 77%;
+    border: 1px solid green;
+    padding: 5px;
+}
+
+form h1 {
+    display: inline-block;
+    width: 820px;
+}
+
+.check {
+    padding: 30px 30px;
+}
+
+form {
+    display: inline;
+}
+
+.contain {
+    width: 1000px;
+    border-radius: 10px;
+    border: 1px #bbb solid;
+    background-color: #eee;
+    padding-top: 20px;
+}
+
+button {
+    margin-left: 10px;
+}
+
+.search {
+    display: inline-block;
+    margin-left: 840px;
+}
+
+.add {
+    float: left;
+    margin-left: 1px;
+}
+
+.pageNav {
+    margin-left: 200px;
+}
+
+.box {
+    float: left;
+    position: relative;
+    left: 50%;
+}
+
+.content {
+    float: left;
+    position: relative;
+}
+
+.boxN {
+    position: absolute;
+}
 
 

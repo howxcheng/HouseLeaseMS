@@ -1,0 +1,305 @@
+<html>
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <title>房屋租赁管理系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/supersized.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/jquery-1.8.2.min.js"></script>
+    <script src="assets/js/supersized.3.2.7.min.js"></script>
+    <script src="assets/js/supersized-init.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="assets/js/scripts.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+    <style type="text/css">
+        ul {
+            font-family: "STKaiti";
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #F5F5F5;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #808080;
+        }
+
+        .active {
+            background-color: #F5F5F5;
+        }
+
+        /* 为所有列表项添加灰色右边框，最后一项（last-child）除外 */
+        .headLi {
+            border-right: 4px solid white;
+            margin-left: 20px;
+            margin-right: 20px;
+            text-align: center;
+            align-content: center;
+        }
+
+        li:last-child {
+            border-right: none;
+        }
+
+        ul {
+            margin: auto;
+            width: 77%;
+            border: 1px solid green;
+            padding: 5px;
+        }
+
+        form h1 {
+            display: inline-block;
+            width: 820px;
+        }
+
+        .check {
+            padding: 30px 30px;
+        }
+
+        form {
+            display: inline;
+        }
+
+        .contain {
+            width: 1000px;
+            border-radius: 10px;
+            border: 1px #bbb solid;
+            background-color: #eee;
+            padding-top: 20px;
+        }
+
+        button {
+            margin-left: 10px;
+        }
+
+        .search {
+            display: inline-block;
+            margin-left: 840px;
+        }
+
+        .add {
+            float: left;
+            margin-left: 1px;
+        }
+
+        .pageNav {
+            margin-left: 200px;
+        }
+
+        .box {
+            float: left;
+            position: relative;
+            left: 50%;
+        }
+
+        .content {
+            float: left;
+            position: relative;
+        }
+
+        .boxN {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+<div class="transparent_class">
+    <ul style="background-color:#ffffff5f;font-size: 24px; position: absolute; left: 6%; width: 88%; font-weight: bolder"
+        id="box1">
+        <li class="headLi"><a href="index.html">首页</a></li>
+        <li class="headLi"><a href="search.html">搜索</a></li>
+        <li class="headLi"><a href="contactus.html">联系我们</a></li>
+        <li style="float:right" class="headLi"><a href="register.html">注册</a></li>
+        <li style="float:right" class="headLi"><a href="login.html">登录</a></li>
+    </ul>
+    <div class="container"
+         style="color:#ffffffff;text-shadow: -1px 1px 0 #000, 1px 1px 0 #000,1px -1px 0 #000,-1px -1px 0 #000;">
+        <br><br><br><br>
+        <h2 style="font-weight: bolder;color: white;">房屋信息展示</h2>
+        <div class="pull-left">
+            <table class="table table-hover" style="table-layout: fixed;text-align: center;">
+                <thead>
+                <tr style=" color:white;font-size:23px;font-weight: bold;">
+                    <th width="10%">房屋编号</th>
+                    <th width="40%">房屋地址</th>
+                    <th width="15%">租金</th>
+                    <th width="15%">面积</th>
+                    <th width="20%">联系电话</th>
+                </tr>
+                </thead>
+                <tbody id="table" style="color: white">
+                <tr v-for="(item, index) in pageData">
+                    <td>{{ item.hid }}</td>
+                    <td>{{ item.address }}</td>
+                    <td>{{ item.rent }}</td>
+                    <td>{{ item.size }}</td>
+                    <td>{{ item.phone }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="container" style="text-shadow: 0 0 0 white">
+                <ul style="width: auto;padding: inherit;display: table" id="pageController" class="pagination list-inline">
+                    <li class="page-item"><a id="leftButton" class="page-link" href="javascript:void(0);"
+                                             onclick="prePage()">上一页</a></li>
+                    <template v-for="page in pages">
+                        <li :class="liClassName">
+                            <a :class="aClassName" href="javascript:void(0)" @click="goToPage(page)">{{ page }}</a>
+                        </li>
+                    </template>
+                    <li class="page-item"><a id="rightButton" class="page-link" href="javascript:void(0);"
+                                             onclick="nextPage()">下一页</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        const id = function (o) {
+            return document.getElementById(o)
+        };
+        const scroll = function (o) {
+            const space = id(o).offsetTop;
+            id(o).style.top = space + 'px';
+            void function () {
+                let goTo = 0;
+                const roll = setInterval(function () {
+                    const height = document.documentElement.scrollTop + document.body.scrollTop + space;
+                    const top = parseInt(id(o).style.top);
+                    if (height !== top) {
+                        goTo = height - parseInt((height - top) * 0.9);
+                        id(o).style.top = goTo + 'px';
+                    }
+                }, 1);
+            }()
+        };
+        scroll('box1');
+    </script>
+
+    <script>
+        const itemPrePage = 7;
+        let houseData;
+        let totalHouseData;
+        let totalPage;
+        let nowPage;
+        let pages = [];
+
+        let pageVue = new Vue({
+            el: '#pageController',
+            data: {
+                liClassName: "page-item",
+                aClassName: "page-link",
+                pages: pages
+            },
+            methods: {
+                goToPage: function (pageNumber) {
+                    nowPage = pageNumber;
+                    setPage();
+                }
+            }
+        });
+
+        let houseVue = new Vue({
+            el: '#table',
+            data: {
+                pageData: []
+            },
+            methods: {}
+        })
+
+        function nextPage() {
+            if (nowPage >= totalPage) {
+                alert("当前已是最后一页！");
+            } else {
+                nowPage += 1;
+                setPage();
+            }
+        }
+
+        function prePage() {
+            if (nowPage <= 1) {
+                alert("当前已是第一页！");
+            } else {
+                nowPage -= 1;
+                setPage();
+            }
+        }
+
+        window.onload = function () {
+            $.ajax({
+                url: "getHouseInfo",
+                type: "POST",
+                data: JSON.stringify({}),
+                dataType: 'json',
+                contentType: 'application/json;charset=UTF-8',
+                success: function (msg) {
+                    totalHouseData = msg;
+                    nowPage = 1;
+                    totalPage = Math.ceil(totalHouseData.length / itemPrePage);
+                    setPage();
+                },
+                error: function () {
+                    alert("数据库连接异常！");
+                }
+            });
+        }
+
+        function min(a, b) {
+            if (a < b) {
+                return a;
+            }
+            return b;
+        }
+
+        function setPage() {
+            pages = []
+            houseData = []
+            let endPage = min(nowPage * itemPrePage, totalHouseData.length);
+            for (let i = (nowPage - 1) * itemPrePage; i < endPage; i++) {
+                houseData.push(totalHouseData[i]);
+            }
+            for (let i = 1; i <= totalPage; i++) {
+                pages.push(i);
+            }
+            pageVue.pages = pages;
+            houseVue.pageData = houseData;
+        }
+    </script>
+</div>
+</body>
+
+</html>
