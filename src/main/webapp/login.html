@@ -118,12 +118,12 @@
         <input type="password" id="password" name="password" class="password" placeholder="请输入您的用户密码！">
         <input type="text" id="Captcha" class="Captcha" name="Captcha" placeholder="请输入验证码！">
         <input type="button" id="code" onclick="createCode()" style="float:right;width:130px;" title="点击更换验证码">
-        <div style="margin: auto;width: 70%;text-align: center">
-            <button type="submit" class="submit_button" onclick="validate()">登&nbsp;&nbsp;&nbsp;录</button>
-            <p style="margin-top: 20px">
-                <a href="register.html">还没有账号，点此处注册</a>
-            </p>
-        </div>
+        <button type="submit" style="margin: 15px auto auto;width: 70%;text-align: center" class="submit_button"
+                onclick="validate()">登&nbsp;&nbsp;&nbsp;录
+        </button>
+        <p style="margin-top: 20px">
+            <a href="register.html">还没有账号，点此处注册</a>
+        </p>
         <div class="error"><span>+</span></div>
     </form>
 </div>

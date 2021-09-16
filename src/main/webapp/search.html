@@ -180,8 +180,10 @@
         <li class="headLi"><a href="index.html">首页</a></li>
         <li class="headLi"><a href="search.html">搜索</a></li>
         <li class="headLi"><a href="contactus.html">联系我们</a></li>
-        <li style="float:right" class="headLi"><a href="register.html">注册</a></li>
-        <li style="float:right" class="headLi"><a href="login.html">登录</a></li>
+        <li id="register" style="float:right;display: none" class="headLi"><a href="register.html">注册</a></li>
+        <li id="login" style="float:right;display: none" class="headLi"><a href="login.html">登录</a></li>
+        <li id="logout" style="float:right;display: none" class="headLi"><a onclick="logout()">注销</a></li>
+        <li id="user" style="float:right;display: none" class="headLi"><a>UserName</a></li>
     </ul>
     <div class="container"
          style="color:#ffffffff;text-shadow: -1px 1px 0 #000, 1px 1px 0 #000,1px -1px 0 #000,-1px -1px 0 #000;">
@@ -190,49 +192,59 @@
         <div class="pull-left">
             <table class="table table-hover" style="table-layout: fixed;text-align: center;">
                 <thead>
-                <tr style=" color:white;font-size:23px;font-weight: bold;">
-                    <th width="12%">房屋编号</th>
-                    <th width="18%">房屋地址</th>
-                    <th width="12%">户主</th>
-                    <th width="12%">租金</th>
-                    <th width="8%">面积</th>
-                    <th width="12%">联系电话</th>
-                </tr>
                 <form id="searchForm" class="form-inline" onsubmit="return false" action="##" method="post">
                     <tr>
                         <td><input type="text" name="hid" class="form-control"
                                    oninput="value=value.replace(/[^\d]/g,'')"
                                    placeholder="房屋编号"/></td>
                         <td><input type="text" name="address" class="form-control" placeholder="房屋地址"/></td>
-                        <td>&nbsp;</td>
                         <td>
                             <select style="color: gray;background-color: white;width: 90%;height: 42px" name="rent">
-                            <option>350-450</option>
-                            <option>450-550</option>
-                            <option>550-650</option>
-                            <option>650-1000</option>
-                        </select></td>
+                                <option value="">未选择</option>
+                                <option value="500">500-750</option>
+                                <option value="750">750-1000</option>
+                                <option value="1000">1000-1250</option>
+                                <option value="1250">1250-1500</option>
+                            </select></td>
                         <td>
                             <select style="color: gray;background-color: white;width: 90%;height: 42px" name="size">
-                            <option>40-60</option>
-                            <option>60-80</option>
-                            <option>80-100</option>
-                            <option>100-120</option>
-                        </select></td>
-                        <td><input style="cursor: pointer;color: gray;background-color: white;width: 90%;height: 42px" type="button" value="搜索"/></td>
+                                <option value="">未选择</option>
+                                <option value="40">40-60</option>
+                                <option value="60">60-80</option>
+                                <option value="80">80-100</option>
+                                <option value="100">100-120</option>
+                            </select></td>
+                        <td><input style="cursor: pointer;color: gray;background-color: white;width: 90%;height: 42px"
+                                   type="button" value="搜索" onclick="search()"/></td>
                     </tr>
                 </form>
+                <tr style=" color:white;font-size:23px;font-weight: bold;">
+                    <th width="10%">房屋编号</th>
+                    <th width="40%">房屋地址</th>
+                    <th width="15%">租金</th>
+                    <th width="15%">面积</th>
+                    <th width="20%">联系电话</th>
+                </tr>
                 </thead>
-                <tbody id="table"></tbody>
+                <tbody id="table" style="color: white">
+                <tr v-for="(item, index) in pageData">
+                    <td>{{ item.hid }}</td>
+                    <td>{{ item.address }}</td>
+                    <td>{{ item.rent }}</td>
+                    <td>{{ item.size }}</td>
+                    <td>{{ item.phone }}</td>
+                </tr>
+                </tbody>
             </table>
 
-            <div class="container" style="text-shadow: 0 0 0 white">
-                <ul style="width: 155px;" id="pageController" class="pagination list-inline">
+            <div id="pageDiv" class="container" style="display: none">
+                <ul style="width: auto;padding: inherit;display: table" id="pageController"
+                    class="pagination list-inline">
                     <li class="page-item"><a id="leftButton" class="page-link" href="javascript:void(0);"
                                              onclick="prePage()">上一页</a></li>
                     <template v-for="page in pages">
                         <li :class="liClassName">
-                            <a :class="aClassName" href="javascript:void(0)" @click="goToPage(page)">{{page}}</a>
+                            <a :class="aClassName" href="javascript:void(0)" @click="goToPage(page)">{{ page }}</a>
                         </li>
                     </template>
                     <li class="page-item"><a id="rightButton" class="page-link" href="javascript:void(0);"
@@ -242,17 +254,17 @@
         </div>
     </div>
     <script type="text/javascript">
-        var id = function (o) {
+        let id = function (o) {
             return document.getElementById(o)
         }
-        var scroll = function (o) {
-            var space = id(o).offsetTop;
+        let scroll = function (o) {
+            let space = id(o).offsetTop;
             id(o).style.top = space + 'px';
             void function () {
-                var goTo = 0;
-                var roll = setInterval(function () {
-                    var height = document.documentElement.scrollTop + document.body.scrollTop + space;
-                    var top = parseInt(id(o).style.top);
+                let goTo = 0;
+                let roll = setInterval(function () {
+                    let height = document.documentElement.scrollTop + document.body.scrollTop + space;
+                    let top = parseInt(id(o).style.top);
                     if (height != top) {
                         goTo = height - parseInt((height - top) * 0.9);
                         id(o).style.top = goTo + 'px';
@@ -265,13 +277,14 @@
     </script>
 
     <script>
-
-        let userData;
-        let totalPage;
+        const itemPrePage = 7;
+        let houseData;
+        let totalHouseData = [];
+        let totalPage = 0;
         let nowPage;
         let pages = [];
 
-        let theVue = new Vue({
+        let pageVue = new Vue({
             el: '#pageController',
             data: {
                 liClassName: "page-item",
@@ -286,56 +299,13 @@
             }
         });
 
-        //搜索按钮
-        document.getElementById("submit").onclick = function () {
-            const formArray = $("#searchForm").serializeArray();
-            let flag = false;
-            $.each(formArray, function (i, item) {
-                if (item.value !== "") {
-                    flag = true;
-                    return false;
-                }
-            });
-            let data, url;
-            if (!flag) {
-                url = "../user/getAllUser";
-                data = "";
-            } else {
-                url = "../user/getUserInfo";
-                data = $("#searchForm").serialize();
-            }
-            $.ajax({
-                url: url,
-                type: "GET",
-                data: data,
-                success: function (msg) {
-                    console.log(msg);//打印服务端返回的数据(调试用)
-                    userData = msg;
-                    nowPage = 1;
-                    totalPage = Math.ceil(msg.length / 10)
-                    setPage();
-                },
-                error: function () {
-                    alert("异常！");
-                }
-            });
-        }
-
-        nowPage = 1;
-        $.ajax({
-            url: "../user/getAllUser",
-            type: "GET",
-            success: function (msg) {
-                console.log(msg);//打印服务端返回的数据(调试用)
-                userData = msg;
-                nowPage = 1;
-                totalPage = Math.ceil(msg.length / 10)
-                setPage();
+        let houseVue = new Vue({
+            el: '#table',
+            data: {
+                pageData: []
             },
-            error: function () {
-                alert("异常！");
-            }
-        });
+            methods: {}
+        })
 
         function nextPage() {
             if (nowPage >= totalPage) {
@@ -355,40 +325,83 @@
             }
         }
 
-        function setPage() {
-            const $table = $('#table');
-            $table.html('')
-            if (userData.length === 0) {
-                $table.append("<tr><td colspan='9'>未查询到相关用户</td></tr>")
+        function search() {
+            let formData = $("#searchForm").serializeArray();
+            let postData = {}
+            for (let i = 0; i < formData.length; i++) {
+                postData[formData[i].name] = formData[i].value;
             }
-            const temp = userData.slice((nowPage - 1) * 10, nowPage * 10);
-            $.each(temp, function (i, n) {
-                let balance = parseFloat(n.balance).toFixed(2);
-                let arrears = parseFloat(n.qianKuan).toFixed(2);
-                let payLink = "onclick=\"window.location.href=\'qianfei.html?UID=" + n.uid + "\'\""
-                let preLink = "onclick=\"window.location.href=\'yucun.html?UID=" + n.uid + "\'\""
-                const $tr = $("<tr>" +
-                    "<td>" + n.uid + "</td>" +
-                    "<td>" + n.userName + "</td>" +
-                    "<td>" + n.userAddress + "</td>" +
-                    "<td>" + n.houseNumber + "</td>" +
-                    "<td>" + n.payMode + "</td>" +
-                    "<td>" + balance + "</td>" +
-                    "<td>" + arrears + "</td>" +
-                    "<td>&nbsp;</td>" +
-                    "<td width='12%'><a href='javascript:void(0);'><button class='btn btn-primary' " + payLink + " >欠费查询</button></a></td>" +
-                    // "<td><a href='javascript:void(0);'><button class='btn btn-danger'>缴费</button></a></td>" +
-                    "<td width='6%'><a href='javascript:void(0);'><button class='btn btn-warning' " + preLink + ">预存</button></a></td>" +
-                    "</tr>");
-                $table.append($tr);
+            $.ajax({
+                url: "getHouseInfo",
+                type: "POST",
+                data: JSON.stringify(postData),
+                dataType: 'json',
+                contentType: 'application/json;charset=UTF-8',
+                success: function (msg) {
+                    totalHouseData = msg;
+                    nowPage = 1;
+                    totalPage = Math.ceil(totalHouseData.length / itemPrePage);
+                    setPage();
+                },
+                error: function () {
+                    alert("数据库连接异常！");
+                }
             });
-            pages = []
-            for (let i = 1; i <= totalPage; i++) {
-                pages.push(i)
-            }
-            theVue.$data.pages = pages;
         }
 
+        function min(a, b) {
+            if (a < b) {
+                return a;
+            }
+            return b;
+        }
+
+        function setPage() {
+            pages = []
+            houseData = []
+            let endPage = min(nowPage * itemPrePage, totalHouseData.length);
+            for (let i = (nowPage - 1) * itemPrePage; i < endPage; i++) {
+                houseData.push(totalHouseData[i]);
+            }
+            for (let i = 1; i <= totalPage; i++) {
+                pages.push(i);
+            }
+            pageVue.pages = pages;
+            houseVue.pageData = houseData;
+            if (houseData.length <= 0) {
+                $("#pageDiv").attr("style", "display:none");
+                alert("未找到相关搜索内容！");
+            } else {
+                $("#pageDiv").attr("style", "display:block");
+            }
+        }
+
+        function isLogin(){
+            $.post("getSession","",function (msg){
+                let username = msg;
+                if (username === "noLogin") {
+                    $("#login").attr("style", "cursor:pointer;float:right;display:block")
+                    $("#register").attr("style", "cursor:pointer;float:right;display:block")
+                } else {
+                    $("#user").attr("style", "cursor:pointer;float:right;display:block")
+                    $("#user").html("<a>" + username + "</a>")
+                    $("#logout").attr("style", "cursor:pointer;float:right;display:block")
+                }
+            })
+        }
+
+
+        function logout(){
+            $.post("logout","",function (){
+                alert("用户注销！");
+                window.location.href = "index.html";
+            })
+        }
+
+        window.onload = function () {
+            $("#pageDiv").attr("style", "display:none;text-shadow: 0 0 0 white;");
+            isLogin();
+        }
     </script>
 </div>
 </body>

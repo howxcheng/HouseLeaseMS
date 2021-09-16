@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @RestController
@@ -16,14 +17,29 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/userLogin")
-    public int userLogin(@RequestBody Map<String, String> jsonString) {
+    public int userLogin(@RequestBody Map<String, String> jsonString, HttpSession httpSession) {
         String username = jsonString.get("username");
         String password = jsonString.get("password");
         if (username.equals("") || password.equals("")) {
             return 0;
         } else {
+            httpSession.setAttribute("username",username);
             return userService.userLogin(username, password);
         }
+    }
+
+    @PostMapping("/getSession")
+    public String getSessionInfo(HttpSession httpSession){
+        Object sessionInfo = httpSession.getAttribute("username");
+        if (sessionInfo!=null){
+            return sessionInfo.toString();
+        }
+        return "noLogin";
+    }
+
+    @PostMapping("/logout")
+    public void logout(HttpSession httpSession){
+        httpSession.removeAttribute("username");
     }
 
     @PostMapping("/userRegister")

@@ -15,7 +15,7 @@ public class HouseServiceImpl implements HouseService {
     HouseDao houseDao;
 
     @Override
-    public List<House> getHouseInfo(String hid, String address, String rent, String size,boolean admin) {
-        return houseDao.getHouseInfo(hid,address,rent,size,admin);
+    public List<House> getHouseInfo(String hid,String address,String rent,String maxRent,String size,String maxSize,boolean admin) {
+        return houseDao.getHouseInfo(hid, address, rent,maxRent, size,maxSize, admin);
     }
 }

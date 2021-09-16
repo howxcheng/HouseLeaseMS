@@ -144,8 +144,10 @@
         <li class="headLi"><a href="index.html">首页</a></li>
         <li class="headLi"><a href="search.html">搜索</a></li>
         <li class="headLi"><a href="contactus.html">联系我们</a></li>
-        <li style="float:right" class="headLi"><a href="register.html">注册</a></li>
-        <li style="float:right" class="headLi"><a href="login.html">登录</a></li>
+        <li id="register" style="float:right;display: none" class="headLi"><a href="register.html">注册</a></li>
+        <li id="login" style="float:right;display: none" class="headLi"><a href="login.html">登录</a></li>
+        <li id="logout" style="float:right;display: none" class="headLi"><a onclick="logout()">注销</a></li>
+        <li id="user" style="float:right;display: none" class="headLi"><a>UserName</a></li>
     </ul>
     <div class="container"
          style="color:#ffffffff;text-shadow: -1px 1px 0 #000, 1px 1px 0 #000,1px -1px 0 #000,-1px -1px 0 #000;">
@@ -173,8 +175,9 @@
                 </tbody>
             </table>
 
-            <div class="container" style="text-shadow: 0 0 0 white">
-                <ul style="width: auto;padding: inherit;display: table" id="pageController" class="pagination list-inline">
+            <div id="pageDiv" class="container" style="display: none">
+                <ul style="width: auto;padding: inherit;display: table" id="pageController"
+                    class="pagination list-inline">
                     <li class="page-item"><a id="leftButton" class="page-link" href="javascript:void(0);"
                                              onclick="prePage()">上一页</a></li>
                     <template v-for="page in pages">
@@ -213,8 +216,8 @@
     <script>
         const itemPrePage = 7;
         let houseData;
-        let totalHouseData;
-        let totalPage;
+        let totalHouseData = [];
+        let totalPage = 0;
         let nowPage;
         let pages = [];
 
@@ -259,25 +262,6 @@
             }
         }
 
-        window.onload = function () {
-            $.ajax({
-                url: "getHouseInfo",
-                type: "POST",
-                data: JSON.stringify({}),
-                dataType: 'json',
-                contentType: 'application/json;charset=UTF-8',
-                success: function (msg) {
-                    totalHouseData = msg;
-                    nowPage = 1;
-                    totalPage = Math.ceil(totalHouseData.length / itemPrePage);
-                    setPage();
-                },
-                error: function () {
-                    alert("数据库连接异常！");
-                }
-            });
-        }
-
         function min(a, b) {
             if (a < b) {
                 return a;
@@ -297,6 +281,54 @@
             }
             pageVue.pages = pages;
             houseVue.pageData = houseData;
+            if (houseData.length <= 0) {
+                $("#pageDiv").attr("style", "display:none");
+                alert("未找到相关搜索内容！");
+            } else {
+                $("#pageDiv").attr("style", "display:block;text-shadow: 0 0 0 white;");
+            }
+        }
+
+        function isLogin() {
+            $.post("getSession", "", function (msg) {
+                let username = msg;
+                if (username === "noLogin") {
+                    $("#login").attr("style", "cursor:pointer;float:right;display:block;cur")
+                    $("#register").attr("style", "cursor:pointer;float:right;display:block")
+                } else {
+                    $("#user").attr("style", "cursor:pointer;float:right;display:block")
+                    $("#user").html("<a>" + username + "</a>")
+                    $("#logout").attr("style", "cursor:pointer;float:right;display:block")
+                }
+            })
+        }
+
+        function logout() {
+            $.post("logout", "", function () {
+                alert("用户注销！");
+                window.location.href = "index.html";
+            })
+        }
+
+        window.onload = function () {
+            $.ajax({
+                url: "getHouseInfo",
+                type: "POST",
+                data: JSON.stringify({}),
+                dataType: 'json',
+                contentType: 'application/json;charset=UTF-8',
+                success: function (msg) {
+                    totalHouseData = msg;
+                    nowPage = 1;
+                    totalPage = Math.ceil(totalHouseData.length / itemPrePage);
+                    setPage();
+                },
+                error: function () {
+                    alert("数据库连接异常！");
+                }
+            });
+            $("#pageDiv").attr("style", "display:none;text-shadow: 0 0 0 white;");
+            isLogin();
         }
     </script>
 </div>

@@ -18,13 +18,13 @@
                 and Hid = #{Hid}
             </if>
             <if test="Address!=''">
-                and Address = #{Address}
+                and Address LIKE #{Address}
             </if>
-            <if test="Rent!=''">
-                and Rent = #{Rent}
+            <if test="Rent!='' and MaxRent!=''">
+                and Rent &gt;= #{Rent} and Rent &lt;= #{MaxRent}
             </if>
-            <if test="Size!=''">
-                and Size = #{Size}
+            <if test="Size!='' and MaxSize!=''">
+                and Size &gt;= #{Size} and Size &lt;= #{MaxSize}
             </if>
             <if test="Admin==false">
                 and Leased = 0
