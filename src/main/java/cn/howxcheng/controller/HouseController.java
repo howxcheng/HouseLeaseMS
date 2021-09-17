@@ -17,9 +17,7 @@ public class HouseController {
 
     @PostMapping("/getHouseInfo")
     public List<House> getHouseInfo(@RequestBody Map<String, String> jsonString) {
-        String hid = jsonString.get("hid");
-        if (hid == null)
-            hid = "";
+        String hid = jsonString.getOrDefault("hid", "");
         String address = jsonString.get("address");
         if (address == null)
             address = "";
@@ -53,5 +51,19 @@ public class HouseController {
         if (hid == null)
             hid = "";
         return houseService.deleteHouseInfo(hid);
+    }
+
+    @PostMapping("/addHouseInfo")
+    public int addHouseInfo(@RequestBody Map<String, String> jsonString) {
+        String address = jsonString.getOrDefault("address", "");
+        String phone = jsonString.getOrDefault("phoneNumber", "");
+        String size = jsonString.getOrDefault("size", "");
+        double sizeF = Double.parseDouble(size);
+        String rent = jsonString.getOrDefault("rent", "");
+        double rentF = Double.parseDouble(rent);
+        String leased = jsonString.getOrDefault("leased", "");
+        long leasedF = Integer.parseInt(leased);
+        House house = new House(0, address, phone, sizeF, rentF, leasedF);
+        return houseService.addHouseInfo(house);
     }
 }

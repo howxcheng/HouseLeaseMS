@@ -10,6 +10,17 @@ public class House {
   private double rent;
   private long leased;
 
+  public House(long hid, String address, String phone, double size, double rent, long leased) {
+    this.hid = hid;
+    this.address = address;
+    this.phone = phone;
+    this.size = size;
+    this.rent = rent;
+    this.leased = leased;
+  }
+
+  public House() {
+  }
 
   public long getHid() {
     return hid;

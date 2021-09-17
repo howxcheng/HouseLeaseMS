@@ -46,24 +46,11 @@ public class UserController {
 
     @PostMapping("/userRegister")
     public int userRegister(@RequestBody Map<String,String> jsonString) {
-//        logger.error(jsonString);
-        String username = jsonString.get("username");
-        if (username == null){
-            username = "" ;
-        }
-        String password = jsonString.get("password");
-        if (password == null){
-            password = "" ;
-        }
-        String phoneNumber = jsonString.get("phoneNumber");
-        if (phoneNumber == null){
-            phoneNumber = "" ;
-        }
-        String email = jsonString.get("email");
-        if (email == null){
-            email = "" ;
-        }
-        User user = new User(0,username,password,phoneNumber,email);
+        String username = jsonString.getOrDefault("username", "");
+        String password = jsonString.getOrDefault("password", "");
+        String phoneNumber = jsonString.getOrDefault("phoneNumber", "");
+        String email = jsonString.getOrDefault("email", "");
+        User user = new User(0, username, password, phoneNumber, email);
         return userService.userRegister(user);
     }
 }

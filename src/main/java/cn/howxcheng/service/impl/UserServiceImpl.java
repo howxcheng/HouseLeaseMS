@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int userRegister(User user) {
-        return userDao.userRegister(0, user.getUsername(),user.getPassword(),user.getPhone(),user.getEmail());
+        return userDao.userRegister(user);
+//        return userDao.userRegister(0, user.getUsername(),user.getPassword(),user.getPhone(),user.getEmail());
     }
 }

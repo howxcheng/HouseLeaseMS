@@ -41,4 +41,8 @@
         </where>
     </delete>
 
+    <insert id="addHouseInfo" parameterType="cn.howxcheng.pojo.House" useGeneratedKeys="true" keyProperty="hid">
+        INSERT INTO house (Hid, Address, Phone, Size, Rent, Leased)
+        VALUES (#{hid}, #{address}, #{phone}, #{size}, #{rent}, #{leased})
+    </insert>
 </mapper>

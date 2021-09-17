@@ -45,6 +45,14 @@
                 alert('提交成功');
                 window.location.href = 'index.html';
             }
+
+            window.onload = function () {
+                $.post("isLogin", "", function (msg) {
+                    if (msg !== "noLogin") {
+                        $("#username").val(msg);
+                    }
+                });
+            }
         </script>
     </form>
 </div>

@@ -22,4 +22,9 @@ public class HouseServiceImpl implements HouseService {
     public int deleteHouseInfo(String hid) {
         return houseDao.deleteHouseInfo(hid);
     }
+
+    @Override
+    public int addHouseInfo(House house) {
+        return houseDao.addHouseInfo(house);
+    }
 }

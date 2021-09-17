@@ -8,4 +8,6 @@ public interface HouseService {
     List<House> getHouseInfo(String hid, String address, String rent, String maxRent, String size, String maxSize, boolean admin);
 
     int deleteHouseInfo(String hid);
+
+    int addHouseInfo(House house);
 }
