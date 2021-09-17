@@ -20,15 +20,17 @@ public class UserController {
     public int userLogin(@RequestBody Map<String, String> jsonString, HttpSession httpSession) {
         String username = jsonString.get("username");
         String password = jsonString.get("password");
-        if (username.equals("") || password.equals("")) {
+        if (username == null || password == null) {
+            return 0;
+        } else if (username.equals("") || password.equals("")) {
             return 0;
         } else {
-            httpSession.setAttribute("username",username);
+            httpSession.setAttribute("username", username);
             return userService.userLogin(username, password);
         }
     }
 
-    @PostMapping("/getSession")
+    @PostMapping("/isLogin")
     public String getSessionInfo(HttpSession httpSession){
         Object sessionInfo = httpSession.getAttribute("username");
         if (sessionInfo!=null){
@@ -39,7 +41,7 @@ public class UserController {
 
     @PostMapping("/logout")
     public void logout(HttpSession httpSession){
-        httpSession.removeAttribute("username");
+        httpSession.invalidate();
     }
 
     @PostMapping("/userRegister")

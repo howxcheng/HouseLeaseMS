@@ -129,6 +129,16 @@
         <div class="error"><span>+</span></div>
     </form>
 </div>
+<script type="text/javascript">
+    window.onload = function () {
+        $.post("isLogin", "", function (msg) {
+            if (msg !== "noLogin") {
+                alert("您已登录，请勿重复登陆，即将跳转至首页！");
+                window.location.href = "index.html";
+            }
+        })
+    }
+</script>
 </body>
 </html>
 

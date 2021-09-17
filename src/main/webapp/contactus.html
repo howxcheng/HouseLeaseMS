@@ -23,104 +23,29 @@
     <script src="assets/js/supersized.3.2.7.min.js"></script>
     <script src="assets/js/supersized-init.js"></script>
     <script src="assets/js/scripts.js"></script>
-    <script type='text/javascript'>
-        let code; //在全局定义验证码
-
-        function createCode() {
-            code = "";
-            const codeLength = 4;//验证码的长度
-            // const checkCode = document.getElementById("code");
-            const random = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-                'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];//随机数
-            for (let i = 0; i < codeLength; i++) {//循环操作
-                const index = Math.floor(Math.random() * 36);//取得随机数的索引（0~35）
-                code += random[index];//根据索引取得随机数加到code上
-            }
-            $("#code").val(code);
-            // checkCode.value = code;//把code值赋给验证码
-        }
-
-        function register() {
-            window.location.href = "register.html";
-        }
-
-        function judge(username, password) {
-            let postData = {
-                "username": username,
-                "password": password
-            };
-            //alert(JSON.stringify(postData));
-            $.ajax({
-                url: "userLogin",
-                type: "POST",
-                data: JSON.stringify(postData),
-                dataType: 'json',
-                contentType: 'application/json;charset=UTF-8',
-                success: function (msg) {
-                    if (msg === 1) {
-                        window.location.href = "index.html";
-                    } else {
-                        createCode();
-                        alert("用户名或密码错误！");
-                    }
-                },
-                error: function () {
-                    alert("数据库连接异常！");
-                }
-            });
-            return false;
-        }
-
-        //校验验证码
-        function exam(){
-                var username = $("#username").val();
-                var houseid = $('#houseid').val();
-                var time = $('#time').val();
-                var phonenumber = $("#phonenumber").val();
-                var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/; 
-                var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
-
-                if (username.trim() === "") {
-                    alert("请先输入用户名~~")
-                    username.focus();
-                    return false;
-                }
-                if(houseid.trim()===""){
-                    alert("请先输入房屋编号~~")
-                    houseid.focus();
-                    return false;
-                }
-                if (time.trim()==="") {
-                    alert("请先输入入住时间~~");
-                    time.focus();
-                    return false;
-                }
-                if (phonenumber.trim()==="") {
-                    alert("请先输入手机号~~");
-                    phonenumber.focus();
-                    return false;
-                }
-            }
-    </script>
 </head>
 
 <body>
-<script type="text/javascript">window.onload = function () {
-    createCode();
-}</script>
 <div class="page-container">
     <h1 style="font-size: 50px">租&nbsp;房&nbsp;登&nbsp;记</h1>
     <form action="" method="post" onsubmit="return false">
         <input type="text" id="username" name="username" class="username" placeholder="请输入您的用户名！">
         <input type="text" id="houseid" name="password" class="password" placeholder="请输入您要租赁的房屋编号！">
         <input type="text" id="time" name="time" placeholder="请输入您的入住时间 年-月-日！">
-        <input type="phonenumber" id="phonenumber" name="phonenumber" placeholder="请输入您的电话号码">
+        <input type="text" id="phonenumber" name="phonenumber" placeholder="请输入您的电话号码">
 
 
         <div style="margin: auto;width: 70%;text-align: center">
-            <button type="button" class="submit_button" onclick="exam()">Message~</button>
+            <button type="submit" class="submit_button" onclick="submitMessage();">&nbsp;&nbsp;Message~&nbsp;&nbsp;
+            </button>
         </div>
         <div class="error"><span>+</span></div>
+        <script type="text/javascript">
+            function submitMessage() {
+                alert('提交成功');
+                window.location.href = 'index.html';
+            }
+        </script>
     </form>
 </div>
 </body>

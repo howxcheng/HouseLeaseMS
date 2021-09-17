@@ -32,4 +32,13 @@
         </where>
     </select>
 
+    <delete id="deleteHouseInfo">
+        delete from house
+        <where>
+            <if test="Hid!=null and Hid!=''">
+                and Hid = #{Hid}
+            </if>
+        </where>
+    </delete>
+
 </mapper>

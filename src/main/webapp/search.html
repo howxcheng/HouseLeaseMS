@@ -377,7 +377,7 @@
         }
 
         function isLogin(){
-            $.post("getSession","",function (msg){
+            $.post("isLogin", "", function (msg) {
                 let username = msg;
                 if (username === "noLogin") {
                     $("#login").attr("style", "cursor:pointer;float:right;display:block")

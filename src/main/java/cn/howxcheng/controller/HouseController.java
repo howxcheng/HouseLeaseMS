@@ -37,13 +37,21 @@ public class HouseController {
         String maxSize = "";
         if (size == null)
             size = "";
-        else if(!size.equals("")){
-            maxSize = String.valueOf(Integer.parseInt(size)+20);
+        else if (!size.equals("")) {
+            maxSize = String.valueOf(Integer.parseInt(size) + 20);
         }
         boolean adminFlag = false;
         String admin = jsonString.get("admin");
         if (admin != null && admin.equals("ioonv8ExxUxIzorh"))
             adminFlag = true;
-        return houseService.getHouseInfo(hid, address, rent,maxRent, size,maxSize, adminFlag);
+        return houseService.getHouseInfo(hid, address, rent, maxRent, size, maxSize, adminFlag);
+    }
+
+    @PostMapping("/deleteHouseInfo")
+    public int deleteHouseInfo(@RequestBody Map<String, String> jsonString) {
+        String hid = jsonString.get("hid");
+        if (hid == null)
+            hid = "";
+        return houseService.deleteHouseInfo(hid);
     }
 }

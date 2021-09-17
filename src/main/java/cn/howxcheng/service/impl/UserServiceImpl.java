@@ -3,7 +3,6 @@ package cn.howxcheng.service.impl;
 import cn.howxcheng.dao.UserDao;
 import cn.howxcheng.pojo.User;
 import cn.howxcheng.service.UserService;
-import cn.howxcheng.utils.Encrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int userRegister(User user) {
-//        return userDao.userRegister(user);
         return userDao.userRegister(0, user.getUsername(),user.getPassword(),user.getPhone(),user.getEmail());
     }
 }
